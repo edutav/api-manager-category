@@ -10,8 +10,26 @@ services:
       - 5432:5432
     volumes:
       - api_db_data:/var/lib/postgresql/data
+      - ./migration:/docker-entrypoint-initdb.d
     networks:
       - api
+
+  app:
+    build: .
+    container_name: api_manager_category
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: api_dev
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - api
+
 networks:
   api:
     driver: bridge
