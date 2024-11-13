@@ -92,7 +92,7 @@ export class CategoryDomainService {
 	}
 
 	validateCategoryStatusUpdate(category: Category): void {
-		// Exemplo de validação de negócio específica para ativação/desativação
+		// specific business validation for activation/deactivation
 		if (category.isActive === false && category.children?.some((child) => child.isActive)) {
 			throw new Error('Não é possível desativar uma categoria com subcategorias ativas');
 		}

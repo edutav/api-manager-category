@@ -15,8 +15,7 @@ export const databaseProviders = [
 				password: configService.get<string>('DB_PASSWORD'),
 				database: configService.get<string>('DB_NAME'),
 				entities: [Category],
-				synchronize: true, // Para desenvolvimento; em produção, use migrations.
-				// logging: true,
+				synchronize: true,
 			});
 
 			return dataSource.initialize();

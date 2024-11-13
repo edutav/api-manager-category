@@ -12,35 +12,45 @@ export class CreateCategoryUseCase {
 		private readonly categoryDomainService: CategoryDomainService,
 	) {}
 
+	/**
+	 * Executes the use case to create a new category.
+	 *
+	 * @param dto - Data transfer object containing the details for the new category.
+	 * @throws {Error} If the parent category is not found.
+	 * @throws {Error} If the category depth exceeds the allowed limit.
+	 * @throws {Error} If the category name is not unique among sibling categories.
+	 * @throws {Error} If the number of child categories exceeds the allowed limit.
+	 * @returns {Promise<void>} A promise that resolves when the category is successfully created.
+	 */
 	async execute(dto: CreateCategoryDTO): Promise<void> {
 		const { name, parentId, isActive } = dto;
 
-		// Verificar se a categoria pai existe e obter seus detalhes
+		// Check if the parent category exists and get its details
 		const parentCategory = parentId ? await this.categoryRepository.findById(parentId) : null;
 
-		// Se a categoria pai não for encontrada, lançar um erro
+		// If the parent category is not found, throw an error
 		if (parentId && !parentCategory) {
 			throw new Error('Categoria pai não encontrada');
 		}
 
-		// 1. Verificar profundidade da hierarquia, somente se houver parentCategory
+		// 1. Check hierarchy depth, only if there is a parentCategory
 		if (parentCategory) {
 			await this.categoryDomainService.checkCategoryDepth(parentCategory);
 
-			// 2. Garantir unicidade de nome entre categorias irmãs
+			// 2. Ensure unique name among sibling categories
 			await this.categoryDomainService.checkUniqueCategoryName(parentCategory, name);
 
-			// 3. Limitar número de categorias filhas com base no ID do parent
+			// 3. Limit the number of child categories based on the parent ID
 			await this.categoryDomainService.checkMaxChildrenLimit(parentCategory.id);
 		}
 
-		// Criar a nova categoria
+		// Create new category
 		const newCategory = new Category();
 		newCategory.name = name;
 		newCategory.isActive = isActive ?? true;
 		newCategory.parent = parentCategory;
 
-		// Salvar a nova categoria no repositório
+		// Save the new category in the repository
 		await this.categoryRepository.create(newCategory);
 	}
 }

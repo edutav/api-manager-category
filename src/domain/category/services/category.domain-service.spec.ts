@@ -33,7 +33,7 @@ describe('CategoryDomainService', () => {
 			jest.spyOn(categoryDomainService, 'calculateDepth').mockResolvedValue(6);
 
 			await expect(categoryDomainService.checkCategoryDepth(category)).rejects.toThrow(
-				`A profundidade da categoria não pode ultrapassar ${categoryDomainService.MAX_DEPTH} níveis.`,
+				`The category depth cannot exceed ${categoryDomainService.MAX_DEPTH} levels.`,
 			);
 		});
 
@@ -53,7 +53,7 @@ describe('CategoryDomainService', () => {
 			categoryRepository.findChildren.mockResolvedValue(siblingCategories);
 
 			await expect(categoryDomainService.checkUniqueCategoryName(parentCategory, 'Duplicated Name')).rejects.toThrow(
-				'O nome da categoria já existe entre as categorias irmãs.',
+				'The category name already exists among sibling categories.',
 			);
 		});
 
@@ -71,7 +71,7 @@ describe('CategoryDomainService', () => {
 			categoryRepository.countChildren.mockResolvedValue(20);
 
 			await expect(categoryDomainService.checkMaxChildrenLimit(1)).rejects.toThrow(
-				`A categoria pai já atingiu o limite de ${categoryDomainService.MAX_CHILDREN} filhas.`,
+				`The parent category has already reached the limit of ${categoryDomainService.MAX_CHILDREN} children.`,
 			);
 		});
 
@@ -135,7 +135,7 @@ describe('CategoryDomainService', () => {
 			} as Category;
 
 			expect(() => categoryDomainService.validateCategoryStatusUpdate(category)).toThrow(
-				'Não é possível desativar uma categoria com subcategorias ativas',
+				'It is not possible to deactivate a category with active subcategories',
 			);
 		});
 

@@ -16,7 +16,6 @@ import { CategoryModule } from './modules/category/category.module';
 			database: 'api_dev',
 			entities: [Category],
 			synchronize: true,
-			// logging: true,
 		}),
 		CategoryModule,
 	],

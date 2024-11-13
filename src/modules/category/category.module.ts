@@ -11,10 +11,8 @@ import { CategoryRepository } from '../../infrastructure/repositories/category.r
 import { CategoryController } from '../../presentation/category/category.controller';
 
 @Module({
-	// imports: [TypeOrmModule.forFeature([Category])],
 	controllers: [CategoryController],
 	providers: [
-		// CategoryService,
 		CategoryDomainService,
 		CreateCategoryUseCase,
 		SearchCategoryUseCase,
@@ -27,7 +25,6 @@ import { CategoryController } from '../../presentation/category/category.control
 		},
 	],
 	exports: [
-		// CategoryService,
 		CategoryDomainService,
 		CreateCategoryUseCase,
 		SearchCategoryUseCase,

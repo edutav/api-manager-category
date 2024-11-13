@@ -49,7 +49,7 @@ export class CategoryRepository implements ICategoryRepository {
 	async findByIDChildren(id: number): Promise<Category | null> {
 		const category = await this.repository.findOne({
 			where: { id },
-			relations: ['children'], // Inclua a relação children
+			relations: ['children'],
 		});
 		return category;
 	}

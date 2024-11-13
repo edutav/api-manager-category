@@ -10,7 +10,7 @@ export class UpdateCategoryDTO {
 	@IsString()
 	name?: string;
 
-	@ApiPropertyOptional({ description: 'Status da categoria (ativa ou inativa)' })
+	@ApiPropertyOptional({ description: 'Category status (active or inactive)' })
 	@IsOptional()
 	@IsBoolean()
 	isActive?: boolean;

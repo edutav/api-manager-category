@@ -10,7 +10,7 @@ async function bootstrap() {
 
 	const options = new DocumentBuilder()
 		.setTitle('API de Categorias')
-		.setDescription('API para gerenciamento de categorias de produtos')
+		.setDescription('API for category management')
 		.setVersion('1.0')
 		.build();
 	const document = SwaggerModule.createDocument(app, options);

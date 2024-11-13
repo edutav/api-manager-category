@@ -18,12 +18,12 @@ export class UpdateCategoryUseCase {
 			throw new Error('Categoria não encontrada');
 		}
 
-		// Se estiver atualizando o nome, verificar unicidade entre categorias irmãs
+		// If updating the name, ensure uniqueness among sibling categories
 		if (updateData.name && category.parent) {
 			await this.categoryDomainService.checkUniqueCategoryName(category.parent, updateData.name);
 		}
 
-		// Atualizar os campos permitidos
+		// Update the allowed fields
 		if (updateData.name !== undefined) {
 			category.name = updateData.name;
 		}

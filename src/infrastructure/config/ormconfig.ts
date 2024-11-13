@@ -12,8 +12,7 @@ export const AppDataSource = new DataSource({
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
 	entities: [Category],
-	synchronize: true, // Para desenvolvimento; em produção, use migrations.
-	// logging: true,
+	synchronize: true,
 });
 
 export default AppDataSource;
